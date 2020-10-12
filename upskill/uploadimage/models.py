@@ -5,3 +5,7 @@ from django.db import models
 class UploadImage(models.Model):
 	image_field = models.ImageField(upload_to='images/',default='images/icon.png')
 	created_at = models.TimeField(auto_now_add=True,blank=True)
+
+
+	# def __str__(self):
+	# 	return self.image_field.url
