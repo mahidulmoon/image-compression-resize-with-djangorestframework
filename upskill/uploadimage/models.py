@@ -8,8 +8,9 @@ def compress_image(image):
 		if im.mode != 'RGB':
 			im = im.convert('RGB')
 		im_io = BytesIO()
-		im.save(im_io, 'jpeg', quality=70,optimize=True)
-		new_image = File(im_io, name=image.name)
+		img = im.resize((795,636))
+		img.save(im_io, format='jpeg', quality=700,optimize=True)
+		new_image = File(im_io, name="workshoprequest"+image.name)
 		return new_image
 
 
@@ -20,7 +21,7 @@ class UploadImage(models.Model):
 	def save(self,force_insert=False, force_update=False, using=None,*args, **kwargs):
 		if self.image_field:
 			image = self.image_field
-			if image.size > 0.3*1024*1024: #if size greater than 300kb then it will send to compress image function
+			if image.size > 0.7*1024*1024: #if size greater than 700kb then it will send to compress image function
 				self.image_field = compress_image(image)
 		super(UploadImage,self).save(*args, **kwargs)
 	
