@@ -12,11 +12,11 @@ class UploadImageViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         file = request.FILES['image_field']
-        # image = UploadImage.objects.create(image_field=file)
-        # image.save()
         image = UploadImage(image_field=file)
         image.save()
-        return Response({'message': "Uploaded","image_url" : image.image_field.url}, status=200)
+        imagehome = UploadImage(image_field=file)
+        imagehome.homesave()
+        return Response({'message': "Uploaded","image_url" : image.image_field.url,"home_image_url" : imagehome.image_field.url}, status=200)
 
     
     
